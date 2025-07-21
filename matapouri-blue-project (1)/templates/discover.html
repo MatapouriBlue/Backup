@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Discover Kinloch - Matapouri Blue{% endblock %}
+
+{% block body_class %}discover-page{% endblock %}
+
+{% block content %}
+<!-- Full-screen map section -->
+<section class="page-section discover-map-section">
+    <div class="map-container" id="map-container">
+        <div id="map" style="width: calc(100% + 200px); height: 100vh; position: relative; top: -400px; left: 0px;"></div>
+    </div>
+</section>
+
+<!-- Weather Widget -->
+<div class="weather-widget" id="weather-widget">
+    <div class="weather-content">
+        <div class="current-weather">
+            <div class="weather-loading">Loading weather...</div>
+            <div class="weather-data" style="display: none;">
+                <div class="current-temp">
+                    <span class="temperature">--</span>
+                    <span class="weather-icon">☀️</span>
+                </div>
+                <div class="weather-details">
+                    <div class="wind-info">Wind: <span class="wind-speed">--</span> km/h <span class="wind-direction">--</span></div>
+                    <div class="humidity-info">Humidity: <span class="humidity">--%</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="forecast-container" id="forecast-container" style="display: none;">
+            <div class="forecast-days"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Discover Box -->
+<div class="discover-box" id="discover-box">
+    <div class="discover-content">
+        <h3>Discover Kinloch</h3>
+        <p>Experience authentic New Zealand trail adventures around beautiful Lake Taupo. From gentle walking paths to challenging mountain bike routes, Kinloch offers something for every outdoor enthusiast.</p>
+        <div class="discover-highlights">
+            <div class="highlight-item">
+                <i class="fas fa-hiking"></i>
+                <span>Multi-use trails for walking & cycling</span>
+            </div>
+            <div class="highlight-item">
+                <i class="fas fa-water"></i>
+                <span>Water taxi connections</span>
+            </div>
+            <div class="highlight-item">
+                <i class="fas fa-mountain"></i>
+                <span>Scenic headland lookouts</span>
+            </div>
+            <div class="highlight-item">
+                <i class="fas fa-camera"></i>
+                <span>Photography opportunities</span>
+            </div>
+        </div>
+        <div class="discover-close">
+            <small>Click anywhere to close</small>
+        </div>
+    </div>
+</div>
+
+<!-- Map Key -->
+<div class="map-key" id="map-key">
+    <div class="key-content">
+        <h4>Map Key</h4>
+        <div class="key-item">
+            <span class="key-marker red-dot"></span>
+            <span>GPS Images - Click to view</span>
+        </div>
+        <div class="key-item">
+            <span class="key-marker blue-dot"></span>
+            <span>Track Details - Walking/biking times</span>
+        </div>
+        <div class="key-item">
+            <span class="key-line blue-dashed"></span>
+            <span>Water Taxi Routes</span>
+        </div>
+    </div>
+</div>
+
+<script>
+// Initialize map when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Discover page loaded, initializing map...');
+    
+    // Initialize the map specifically for the Discover page
+    if (window.KinlochMap && document.getElementById('map')) {
+        window.kinlochMapInstance = new window.KinlochMap('map');
+        console.log('KinlochMap initialized on Discover page');
+    } else {
+        console.error('KinlochMap class not available or map container not found');
+    }
+});
+</script>
+
+{% endblock %}

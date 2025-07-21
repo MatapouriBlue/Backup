@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Position Editor - Matapouri Blue</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .editor-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .editor-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .editor-controls {
+            padding: 20px;
+            background: #ecf0f1;
+            border-bottom: 1px solid #bdc3c7;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+        
+        input[type="range"] {
+            width: 200px;
+            margin: 0 10px;
+        }
+        
+        input[type="text"] {
+            width: 300px;
+            padding: 5px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        .preview-container {
+            padding: 20px;
+            min-height: 500px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="10" height="10" fill="%23f8f9fa"/><rect x="10" y="10" width="10" height="10" fill="%23f8f9fa"/><rect x="10" width="10" height="10" fill="%23e9ecef"/><rect y="10" width="10" height="10" fill="%23e9ecef"/></svg>');
+        }
+        
+        .text-area {
+            border: 2px dashed #3498db;
+            position: relative;
+            background: rgba(173, 216, 230, 0.3);
+            margin: 20px 0;
+            cursor: move;
+        }
+        
+        .text-content {
+            padding: 10px;
+            user-select: none;
+        }
+        
+        .position-indicator {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            font-size: 12px;
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        .code-output {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <div class="editor-header">
+            <h1>Text Position Editor</h1>
+            <p>Drag text areas to position them visually, then copy the generated CSS</p>
+        </div>
+        
+        <div class="editor-controls">
+            <div class="control-group">
+                <label>Container Height:</label>
+                <input type="range" id="containerHeight" min="50" max="200" value="80">
+                <span id="heightValue">80px</span>
+            </div>
+            
+            <div class="control-group">
+                <label>Text Content:</label>
+                <input type="text" id="textContent" value="Our name, our philosophy" placeholder="Enter text content">
+            </div>
+            
+            <div class="control-group">
+                <label>Font Size:</label>
+                <input type="range" id="fontSize" min="12" max="24" value="16">
+                <span id="fontSizeValue">16px</span>
+            </div>
+            
+            <div class="control-group">
+                <button onclick="addTextArea()">Add Text Area</button>
+                <button onclick="resetAll()">Reset All</button>
+                <button onclick="generateCSS()">Generate CSS</button>
+            </div>
+        </div>
+        
+        <div class="preview-container" id="previewContainer">
+            <div class="text-area" id="textArea1" style="height: 80px; width: 800px; margin: 50px auto;">
+                <div class="position-indicator">Philosophy Section</div>
+                <div class="text-content" id="textContent1">
+                    <div>Our name, our philosophy</div>
+                    <div>Inspired by the philosophy of Japanese Bonsai...</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="code-output" id="codeOutput">
+            <strong>Generated CSS will appear here...</strong>
+        </div>
+    </div>
+
+    <script>
+        let draggedElement = null;
+        let textAreaCounter = 1;
+        
+        // Make text areas draggable
+        function makeDraggable(element) {
+            element.addEventListener('mousedown', function(e) {
+                if (e.target.classList.contains('text-content') || e.target.parentElement.classList.contains('text-content')) {
+                    draggedElement = element;
+                    const rect = element.getBoundingClientRect();
+                    const offsetX = e.clientX - rect.left;
+                    const offsetY = e.clientY - rect.top;
+                    
+                    function onMouseMove(e) {
+                        if (draggedElement) {
+                            const container = document.getElementById('previewContainer');
+                            const containerRect = container.getBoundingClientRect();
+                            
+                            let x = e.clientX - containerRect.left - offsetX;
+                            let y = e.clientY - containerRect.top - offsetY;
+                            
+                            // Constrain to container
+                            x = Math.max(0, Math.min(x, containerRect.width - draggedElement.offsetWidth));
+                            y = Math.max(0, Math.min(y, containerRect.height - draggedElement.offsetHeight));
+                            
+                            draggedElement.style.left = x + 'px';
+                            draggedElement.style.top = y + 'px';
+                            draggedElement.style.position = 'absolute';
+                            
+                            updatePositionIndicator(draggedElement, x, y);
+                        }
+                    }
+                    
+                    function onMouseUp() {
+                        draggedElement = null;
+                        document.removeEventListener('mousemove', onMouseMove);
+                        document.removeEventListener('mouseup', onMouseUp);
+                        generateCSS();
+                    }
+                    
+                    document.addEventListener('mousemove', onMouseMove);
+                    document.addEventListener('mouseup', onMouseUp);
+                }
+            });
+        }
+        
+        function updatePositionIndicator(element, x, y) {
+            const indicator = element.querySelector('.position-indicator');
+            indicator.textContent = `Position: ${Math.round(x)}px, ${Math.round(y)}px`;
+        }
+        
+        function addTextArea() {
+            textAreaCounter++;
+            const textContent = document.getElementById('textContent').value;
+            const fontSize = document.getElementById('fontSize').value;
+            const height = document.getElementById('containerHeight').value;
+            
+            const newTextArea = document.createElement('div');
+            newTextArea.className = 'text-area';
+            newTextArea.id = `textArea${textAreaCounter}`;
+            newTextArea.style.height = height + 'px';
+            newTextArea.style.width = '800px';
+            newTextArea.style.margin = '20px auto';
+            newTextArea.innerHTML = `
+                <div class="position-indicator">Text Area ${textAreaCounter}</div>
+                <div class="text-content" style="font-size: ${fontSize}px;">${textContent}</div>
+            `;
+            
+            document.getElementById('previewContainer').appendChild(newTextArea);
+            makeDraggable(newTextArea);
+        }
+        
+        function resetAll() {
+            const container = document.getElementById('previewContainer');
+            container.innerHTML = `
+                <div class="text-area" id="textArea1" style="height: 80px; width: 800px; margin: 50px auto;">
+                    <div class="position-indicator">Philosophy Section</div>
+                    <div class="text-content" id="textContent1">
+                        <div>Our name, our philosophy</div>
+                        <div>Inspired by the philosophy of Japanese Bonsai...</div>
+                    </div>
+                </div>
+            `;
+            makeDraggable(document.getElementById('textArea1'));
+            textAreaCounter = 1;
+        }
+        
+        function generateCSS() {
+            const textAreas = document.querySelectorAll('.text-area');
+            let css = '';
+            
+            textAreas.forEach((area, index) => {
+                const rect = area.getBoundingClientRect();
+                const containerRect = document.getElementById('previewContainer').getBoundingClientRect();
+                
+                const x = area.style.left ? parseInt(area.style.left) : 0;
+                const y = area.style.top ? parseInt(area.style.top) : 0;
+                
+                css += `/* Text Area ${index + 1} */\n`;
+                css += `.text-area-${index + 1} {\n`;
+                css += `    position: absolute;\n`;
+                css += `    top: ${y}px;\n`;
+                css += `    left: ${x}px;\n`;
+                css += `    width: ${area.offsetWidth}px;\n`;
+                css += `    height: ${area.offsetHeight}px;\n`;
+                css += `}\n\n`;
+            });
+            
+            document.getElementById('codeOutput').innerHTML = `<pre>${css}</pre>`;
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            makeDraggable(document.getElementById('textArea1'));
+            
+            // Update height control
+            document.getElementById('containerHeight').addEventListener('input', function() {
+                document.getElementById('heightValue').textContent = this.value + 'px';
+            });
+            
+            // Update font size control
+            document.getElementById('fontSize').addEventListener('input', function() {
+                document.getElementById('fontSizeValue').textContent = this.value + 'px';
+            });
+        });
+    </script>
+</body>
+</html>

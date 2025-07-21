@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block title %}About - Matapouri Blue{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="section-overlay"></div>
+    <div class="container content-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h1 class="page-title">About Matapouri Blue</h1>
+                
+                <!-- Navigation Pills for Sub-sections -->
+                <ul class="nav nav-pills justify-content-center mb-5" id="about-tabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="experience-tab" data-bs-toggle="pill" data-bs-target="#experience" type="button" role="tab">
+                            A unique holiday experience
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="accommodation-tab" data-bs-toggle="pill" data-bs-target="#accommodation" type="button" role="tab">
+                            Accommodation and facilities
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="kinloch-tab" data-bs-toggle="pill" data-bs-target="#kinloch" type="button" role="tab">
+                            Discover Kinloch
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="hosts-tab" data-bs-toggle="pill" data-bs-target="#hosts" type="button" role="tab">
+                            Your Hosts
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="rates-tab" data-bs-toggle="pill" data-bs-target="#rates" type="button" role="tab">
+                            Room Rates
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="booking-tab" data-bs-toggle="pill" data-bs-target="#booking" type="button" role="tab">
+                            Booking Times
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="cancellation-tab" data-bs-toggle="pill" data-bs-target="#cancellation" type="button" role="tab">
+                            Cancellation Policy
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="transport-tab" data-bs-toggle="pill" data-bs-target="#transport" type="button" role="tab">
+                            Transport
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="guidelines-tab" data-bs-toggle="pill" data-bs-target="#guidelines" type="button" role="tab">
+                            Respite Studio Guidelines
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content" id="about-tabContent">
+                    <!-- A unique holiday experience -->
+                    <div class="tab-pane fade show active" id="experience" role="tabpanel">
+                        <div class="content-card">
+                            <h3 class="subsection-title">A unique holiday experience</h3>
+                            <p class="content-text">
+                                Matapouri Blue offers an extraordinary escape that combines luxury accommodation with the pristine beauty of New Zealand's Northland coast. Our property provides an intimate retreat where guests can disconnect from the everyday and reconnect with nature.
+                            </p>
+                            <p class="content-text">
+                                Experience the tranquility of our secluded location while enjoying modern amenities and personalized service. Whether you're seeking adventure, relaxation, or simply a change of scenery, Matapouri Blue delivers an unforgettable holiday experience.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Accommodation and facilities -->
+                    <div class="tab-pane fade" id="accommodation" role="tabpanel">
+                        <div class="content-card">
+                            <h3 class="subsection-title">Accommodation and facilities</h3>
+                            <p class="content-text">
+                                Our thoughtfully designed accommodation features contemporary styling with natural materials that complement the surrounding landscape. Each space is carefully curated to provide comfort while maintaining a connection to the outdoor environment.
+                            </p>
+                            <p class="content-text">
+                                Modern facilities include well-appointed kitchens, comfortable living areas, and private spaces designed for relaxation. All amenities are provided to ensure your stay is both comfortable and memorable.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Discover Kinloch -->
+                    <div class="tab-pane fade" id="kinloch" role="tabpanel">
+                        <div class="content-card">
+                            <h3 class="subsection-title">Discover Kinloch</h3>
+                            <p class="content-text">
+                                The Kinloch area offers a wealth of natural attractions and outdoor activities. From pristine beaches to native bush walks, there's something for every type of traveler.
+                            </p>
+                            <p class="content-text">
+                                Explore secluded bays, enjoy water sports, or simply relax on some of New Zealand's most beautiful coastline. The area is rich in both natural beauty and cultural heritage.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Your Hosts -->
+                    <div class="tab-pane fade" id="hosts" role="tabpanel">
+                        <div class="content-card">
+                            <h3 class="subsection-title">Your Hosts</h3>
+                            <p class="content-text">
+                                Our dedicated team is committed to ensuring your stay at Matapouri Blue exceeds expectations. With extensive local knowledge and a passion for hospitality, we're here to help you make the most of your time in this beautiful region.
+                            </p>
+                            <p class="content-text">
+                                We take pride in providing personalized service while respecting your privacy and independence. Whether you need recommendations for activities, dining, or simply want to know the best spots to watch the sunset, we're here to help.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Room Rates -->
+                    <div class="tab-pane fade" id="rates" role="tabpanel">
+                        <div class="content-card">
+                            <h3 class="subsection-title">Room Rates</h3>
+                            <p class="content-text">
+                                Competitive rates for premium accommodation. Contact us for current pricing and special package deals.
+                            </p>
+                            <p class="content-text">
+                                We offer seasonal rates and extended stay discounts. All rates include access to our facilities and complimentary amenities.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Booking Times -->
+                    <div class="tab-pane fade" id="booking" role="tabpanel">
+                        <div class="content-card">
+                            <h3 class="subsection-title">Booking Times</h3>
+                            <p class="content-text">
+                                <strong>Check-in:</strong> 3:00 PM<br>
+                                <strong>Check-out:</strong> 11:00 AM<br>
+                                <em>Flexible arrangements available upon request.</em>
+                            </p>
+                            <p class="content-text">
+                                Early check-in and late check-out can be arranged subject to availability. Please contact us to discuss your specific requirements.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Cancellation Policy 100% refund -->
+                    <div class="tab-pane fade" id="cancellation" role="tabpanel">
+                        <div class="content-card">
+                            <h3 class="subsection-title">Cancellation Policy 100% refund</h3>
+                            <p class="content-text">
+                                We understand that plans can change. Matapouri Blue offers a flexible cancellation policy with 100% refund available for cancellations made within our specified timeframe.
+                            </p>
+                            <p class="content-text">
+                                Please contact us for complete terms and conditions regarding our cancellation policy. We aim to be as flexible as possible while maintaining our booking commitments.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Transport / Pick up & Drop off -->
+                    <div class="tab-pane fade" id="transport" role="tabpanel">
+                        <div class="content-card">
+                            <h3 class="subsection-title">Transport / Pick up & Drop off</h3>
+                            <p class="content-text">
+                                We can arrange transportation from local airports and transport hubs. Please inquire about our transfer services when booking.
+                            </p>
+                            <p class="content-text">
+                                Our transport services include airport transfers, local area transportation, and assistance with travel arrangements. We're here to make your journey as smooth as possible.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Respite Studio Guidelines -->
+                    <div class="tab-pane fade" id="guidelines" role="tabpanel">
+                        <div class="content-card">
+                            <h3 class="subsection-title">Respite Studio Guidelines</h3>
+                            <p class="content-text">
+                                Our studio spaces are designed for relaxation and creativity. Please respect quiet hours and shared spaces to ensure all guests can enjoy their retreat experience.
+                            </p>
+                            <p class="content-text">
+                                Guidelines include maintaining peaceful environments, respecting other guests' privacy, and following our eco-friendly practices. Detailed guidelines will be provided upon arrival.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Contact - Matapouri Blue{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="section-overlay"></div>
+    <div class="container content-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h1 class="page-title">Contact Us</h1>
+                
+                <div class="row">
+                    <div class="col-md-8 mb-4">
+                        <div class="content-card">
+                            <h3 class="subsection-title">
+                                <i class="fas fa-envelope me-2"></i>
+                                Get In Touch
+                            </h3>
+                            <p class="content-text">
+                                We'd love to hear from you! Whether you have questions about our accommodation, 
+                                need help with your booking, or want recommendations for your stay, we're here to help.
+                            </p>
+                            
+                            <form class="mt-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="firstName" class="form-label">First Name</label>
+                                            <input type="text" class="form-control" id="firstName" name="firstName" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="lastName" class="form-label">Last Name</label>
+                                            <input type="text" class="form-control" id="lastName" name="lastName" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <select class="form-control" id="subject" name="subject" required>
+                                        <option value="">Select a subject</option>
+                                        <option value="booking">Booking Inquiry</option>
+                                        <option value="availability">Availability Question</option>
+                                        <option value="facilities">Facilities & Amenities</option>
+                                        <option value="local">Local Area Information</option>
+                                        <option value="transport">Transport & Directions</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="message" class="form-label">Your Message</label>
+                                    <textarea class="form-control" id="message" name="message" rows="6" placeholder="Please tell us how we can help you..." required></textarea>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-paper-plane me-2"></i>
+                                        Send Message
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="content-card">
+                            <h3 class="subsection-title">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Contact Information
+                            </h3>
+                            
+                            <div class="mb-4">
+                                <h4 class="subsection-title">
+                                    <i class="fas fa-phone me-2"></i>
+                                    Phone
+                                </h4>
+                                <p class="content-text">
+                                    <strong>Main:</strong> +64 9 XXX XXXX<br>
+                                    <strong>Mobile:</strong> +64 XXX XXX XXX
+                                </p>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4 class="subsection-title">
+                                    <i class="fas fa-envelope me-2"></i>
+                                    Email
+                                </h4>
+                                <p class="content-text">
+                                    <strong>Bookings:</strong> bookings@matapouriblue.co.nz<br>
+                                    <strong>General:</strong> info@matapouriblue.co.nz
+                                </p>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4 class="subsection-title">
+                                    <i class="fas fa-map-marker-alt me-2"></i>
+                                    Address
+                                </h4>
+                                <p class="content-text">
+                                    Matapouri Blue<br>
+                                    Matapouri Bay<br>
+                                    Northland, New Zealand
+                                </p>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4 class="subsection-title">
+                                    <i class="fas fa-clock me-2"></i>
+                                    Response Times
+                                </h4>
+                                <p class="content-text">
+                                    <strong>Email:</strong> Within 24 hours<br>
+                                    <strong>Phone:</strong> 9 AM - 6 PM daily<br>
+                                    <strong>Emergency:</strong> 24/7
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="content-card">
+                            <h3 class="subsection-title">
+                                <i class="fas fa-directions me-2"></i>
+                                Getting Here
+                            </h3>
+                            <p class="content-text">
+                                Matapouri is approximately 30 minutes drive from Whangarei. 
+                                We can arrange airport transfers and provide detailed directions 
+                                upon booking confirmation.
+                            </p>
+                            <div class="text-center mt-3">
+                                <a href="{{ url_for('how_to_book') }}" class="btn btn-primary">
+                                    Transport Info
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-card mt-4">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-question-circle me-2"></i>
+                        Frequently Asked Questions
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="subsection-title">What's the best time to visit?</h4>
+                            <p class="content-text">
+                                New Zealand's summer (December-February) offers the warmest weather, 
+                                but each season has its own unique appeal. Contact us for seasonal recommendations.
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="subsection-title">Do you provide meals?</h4>
+                            <p class="content-text">
+                                Our accommodation includes kitchen facilities, and we can arrange catering 
+                                services. We're happy to recommend local restaurants and cafes.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <h4 class="subsection-title">What activities are available?</h4>
+                            <p class="content-text">
+                                From water sports to hiking, there's something for everyone. 
+                                We provide detailed local activity guides and can arrange bookings.
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="subsection-title">Is the property child-friendly?</h4>
+                            <p class="content-text">
+                                Yes! We welcome families and can provide additional amenities for children. 
+                                Please let us know your requirements when booking.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

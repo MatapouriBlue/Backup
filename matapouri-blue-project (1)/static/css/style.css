@@ -1,0 +1,1119 @@
+/* Matapouri Blue Website Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: rgba(255, 255, 255, 0.9);
+    overflow-x: hidden;
+    padding-top: 0;
+    margin-top: 0;
+    background: #1a1a1a; /* Dark background for all pages by default */
+}
+
+/* Blue background only for front page */
+body.front-page {
+    background: linear-gradient(135deg, #e6f3ff 0%, #cce7ff 100%);
+}
+
+/* Clean background for discover page without breaking functionality */
+body.discover-page {
+    background: white !important;
+}
+
+/* Clean white background for discover page */
+body.discover-page {
+    background: white !important;
+}
+
+/* Header Styles */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 15px 0;
+    background: transparent;
+}
+
+/* Header gradient overlay for front page only */
+body.front-page .header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30vh;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), transparent);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.brand-name {
+    font-size: 2rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.95);
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.brand-name:hover {
+    color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+}
+
+.menu-links {
+    display: flex;
+    gap: 30px;
+}
+
+.menu-link {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.menu-link:hover {
+    color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+/* Dropdown Styles */
+.dropdown-menu {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 10px;
+    padding: 15px 0;
+    margin-top: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    color: rgba(255, 255, 255, 0.9);
+    padding: 8px 20px;
+    font-weight: 300;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 1);
+    transform: translateX(5px);
+}
+
+.dropdown-toggle::after {
+    color: rgba(255, 255, 255, 0.7);
+    margin-left: 8px;
+}
+
+/* Page Sections */
+.page-section {
+    min-height: auto;
+    position: relative;
+    padding: 0;
+}
+
+.page-section:not(.carousel-section) {
+    padding: 80px 0 60px 0;
+}
+
+/* Only show section overlay on front page */
+body.front-page .section-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, 
+        rgba(138, 173, 184, 0) 0%, 
+        rgba(138, 173, 184, 0.15) 5mm,
+        rgba(138, 173, 184, 0.25) 10mm,
+        rgba(138, 173, 184, 0.4) 15mm,
+        rgba(138, 173, 184, 0.6) 20mm,
+        rgba(138, 173, 184, 0.9) calc(100% - 20mm),
+        rgba(138, 173, 184, 0.6) calc(100% - 15mm),
+        rgba(138, 173, 184, 0.4) calc(100% - 10mm),
+        rgba(138, 173, 184, 0.25) calc(100% - 5mm),
+        rgba(138, 173, 184, 0.15) calc(100% - 2mm),
+        rgba(138, 173, 184, 0) 100%);
+    pointer-events: none;
+}
+
+/* Hide section overlay on other pages */
+body:not(.front-page) .section-overlay {
+    display: none;
+}
+
+.section-divider {
+    height: 2px;
+    background: transparent;
+    margin: 0;
+}
+
+/* Image Carousel Styles */
+.carousel-section {
+    height: 60vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-container {
+    position: absolute;
+    height: 100%;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+
+
+.carousel-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+.carousel-image.active {
+    opacity: 1;
+}
+
+/* Specific positioning for Blue heron image to show head clearly */
+.carousel-image[src*="Blue heron"] {
+    object-position: center 30%;
+}
+
+.carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 80px;
+    z-index: 10;
+}
+
+.availability-button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.95);
+    padding: 15px 35px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 300;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    letter-spacing: 1px;
+}
+
+.availability-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 1);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+/* Content Styles */
+.content-container {
+    position: relative;
+    z-index: 2;
+    padding: 120px 0 40px 0;
+}
+
+.page-title {
+    font-size: 3rem;
+    font-weight: 200;
+    text-align: left;
+    margin-bottom: 40px;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 3px;
+    position: absolute;
+    top: 100px;
+    left: 40px;
+    z-index: 3;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.subsection-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.content-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 25px;
+}
+
+.content-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 25px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.content-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 12px 15px;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-primary {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.95);
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+}
+
+/* Navigation Menu Styles */
+.nav-pills .nav-link {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    margin: 5px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link:hover,
+.nav-pills .nav-link.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.5rem;
+        top: 90px;
+        left: 20px;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .carousel-container {
+        height: 50vh;
+    }
+    
+    .availability-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+    
+    .content-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-title {
+        font-size: 2rem;
+        top: 80px;
+        left: 15px;
+    }
+    
+    .brand-name {
+        font-size: 1.5rem;
+    }
+    
+    .carousel-container {
+        height: 40vh;
+    }
+}
+
+/* Philosophy Section */
+.philosophy-section {
+    position: relative;
+    z-index: 10;
+    margin-top: 0;
+    padding-top: 0;
+    transform: none;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.philosophy-header {
+    position: relative;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.philosophy-title {
+    font-size: inherit;
+    font-weight: normal;
+    color: inherit;
+    text-align: center;
+    margin: 0;
+    letter-spacing: normal;
+    font-family: inherit;
+    text-decoration: none;
+    font-style: normal;
+    text-transform: none;
+    display: inline-block;
+}
+
+.edit-philosophy-btn {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(52, 152, 219, 0.7);
+    font-size: 16px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.philosophy-header:hover .edit-philosophy-btn {
+    opacity: 1;
+    visibility: visible;
+}
+
+.edit-philosophy-btn:hover {
+    color: #3498db;
+}
+
+.philosophy-title[contenteditable="true"]:focus,
+.philosophy-text[contenteditable="true"]:focus {
+    outline: 2px dashed #3498db;
+    outline-offset: 2px;
+    background: rgba(52, 152, 219, 0.05);
+}
+
+.philosophy-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    height: 80px;
+    display: table;
+    width: 100%;
+}
+
+.philosophy-text-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.philosophy-text {
+    font-size: inherit;
+    line-height: normal;
+    color: inherit;
+    margin: 0;
+    font-weight: normal;
+    letter-spacing: normal;
+    font-family: inherit;
+    text-decoration: none;
+    font-style: normal;
+    text-transform: none;
+}
+
+/* Remove parallax effect */
+
+/* Welcome Section with Map */
+.welcome-section {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    margin-top: 0;
+    padding-top: 40px;
+    z-index: 10;
+}
+
+/* Only show blue gradient on front page welcome section */
+body.front-page .welcome-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20mm;
+    background: linear-gradient(to bottom,
+        rgba(173, 216, 230, 0.5) 0%,
+        rgba(173, 216, 230, 0.3) 25%,
+        rgba(173, 216, 230, 0.15) 50%,
+        rgba(173, 216, 230, 0.05) 75%,
+        rgba(173, 216, 230, 0) 100%);
+    z-index: 5;
+    pointer-events: none;
+}
+
+.map-container {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.32;
+    filter: saturate(0.3) brightness(0.8);
+    transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    min-height: 150vh;
+    z-index: 1;
+}
+
+/* Image popup styling */
+.image-popup-clear .leaflet-popup-content-wrapper {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.image-popup-clear .leaflet-popup-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: transparent !important;
+}
+
+.image-popup-clear .leaflet-popup-tip {
+    display: none !important;
+}
+
+.image-popup-clear .leaflet-popup-close-button {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border-radius: 50% !important;
+    width: 20px !important;
+    height: 20px !important;
+    right: 5px !important;
+    top: 5px !important;
+}
+
+
+
+/* Trail and POI popup styling */
+.trail-popup, .poi-popup, .water-taxi-popup {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.trail-popup h4, .poi-popup h4, .water-taxi-popup h4 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+
+.trail-popup p, .poi-popup p, .water-taxi-popup p {
+    margin: 4px 0;
+    color: #666;
+}
+
+/* Image label styling */
+.image-label {
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.map-container.visible {
+    opacity: 1;
+    filter: saturate(1) brightness(1);
+}
+
+/* Discover page styling */
+.discover-map-section {
+    position: relative;
+    min-height: 100vh;
+    padding: 0;
+    margin-top: 0;
+    background: transparent !important;
+}
+
+.discover-map-section .map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    opacity: 1;
+    filter: none;
+    background: transparent !important;
+}
+
+.discover-map-section .map-container::after {
+    display: none !important;
+}
+
+.discover-map-section #map {
+    background: transparent !important;
+}
+
+/* Header gradient for Discover page */
+body:not(.front-page) .header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30vh;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), transparent);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Discover button styling */
+.discover-button {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.discover-button:hover {
+    color: rgba(255, 255, 255, 1);
+    border-bottom-color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+}
+
+/* Weather Widget styling for Discover page */
+.weather-widget {
+    position: fixed;
+    top: 80px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    padding: 15px;
+    z-index: 1000;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: white;
+    min-width: 200px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.weather-widget .current-temp {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.weather-widget .temperature {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.weather-widget .weather-icon {
+    font-size: 24px;
+}
+
+.weather-widget .weather-details {
+    font-size: 12px;
+    color: #cccccc;
+}
+
+.forecast-container {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.forecast-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    font-size: 11px;
+    text-align: center;
+}
+
+/* Discover Box styling for Discover page */
+.discover-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    padding: 25px;
+    max-width: 350px;
+    z-index: 1000;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: white;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.discover-box h3 {
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.discover-box p {
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+}
+
+.discover-highlights {
+    margin-bottom: 20px;
+}
+
+.highlight-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.highlight-item i {
+    margin-right: 10px;
+    width: 16px;
+    text-align: center;
+}
+
+.discover-close {
+    text-align: center;
+    font-size: 12px;
+    color: #cccccc;
+    font-style: italic;
+}
+
+/* Map Key styling for Discover page */
+.map-key {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    padding: 15px;
+    z-index: 1000;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: white;
+    font-size: 14px;
+    min-width: 220px;
+}
+
+.map-key h4 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.key-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.key-marker {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.key-marker.red-dot {
+    background-color: #ff0000;
+    border: 2px solid white;
+}
+
+.key-marker.blue-dot {
+    background-color: #0066cc;
+    border: 2px solid white;
+}
+
+.key-line {
+    width: 20px;
+    height: 3px;
+    margin-right: 8px;
+    display: inline-block;
+}
+
+.key-line.blue-dashed {
+    background: linear-gradient(to right, #003366 50%, transparent 50%);
+    background-size: 8px 3px;
+}
+
+/* Faded edge effect for map - removed blue overlay */
+.map-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: none;
+    border-radius: 8px;
+}
+
+/* Discover Kinloch info box styles for dynamically created element */
+#discover-kinloch-box h3 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+    letter-spacing: 0.5px;
+}
+
+#discover-kinloch-box p {
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 300;
+    line-height: 1.5;
+    margin: 0;
+    text-align: justify;
+}
+
+#discover-kinloch-box .click-to-remove {
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 300;
+    text-align: center;
+    margin-top: 15px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
+}
+
+#discover-kinloch-box .click-to-remove:hover {
+    opacity: 1;
+}
+
+.map-container.semi-visible {
+    opacity: 0.48;
+    filter: saturate(0.3) brightness(0.8);
+}
+
+.welcome-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 15vh;
+    transition: opacity 0.5s ease;
+}
+
+.welcome-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.welcome-content {
+    text-align: center;
+    max-width: none;
+    padding: 40px 80px;
+    margin: 0 auto;
+}
+
+.welcome-title {
+    font-size: 3rem;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 30px;
+    letter-spacing: 3px;
+}
+
+.welcome-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 20px;
+}
+
+.welcome-text p {
+    margin-bottom: 20px;
+}
+
+.discover-link {
+    margin-top: 30px;
+}
+
+.discover-link a {
+    color: black;
+    text-decoration: underline;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.discover-link a:hover {
+    color: rgba(0, 0, 0, 0.8);
+    text-shadow: none;
+}
+
+/* Remove parallax effect for welcome section */
+
+/* Satellite Map Placeholder */
+.satellite-map {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 50%, #1a202c 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+#kinlochMap {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* Desaturate map tiles when welcome overlay is visible - front page only */
+body.front-page .map-container:not(.visible) .leaflet-tile-pane {
+    filter: saturate(0.3) brightness(0.8);
+}
+
+body.front-page .map-container:not(.visible) .leaflet-control-container {
+    filter: saturate(0.3) brightness(0.8);
+}
+
+body.front-page .map-container:not(.visible) .leaflet-overlay-pane {
+    filter: saturate(0.3) brightness(0.8);
+}
+
+body.front-page .map-container:not(.visible) .leaflet-marker-pane {
+    filter: saturate(0.3) brightness(0.8);
+}
+
+body.front-page .map-container:not(.visible) .leaflet-popup-pane {
+    filter: saturate(0.3) brightness(0.8);
+}
+
+/* Custom popup styling */
+.leaflet-popup-content-wrapper {
+    background: rgba(0, 0, 0, 0.8) !important;
+    border-radius: 5px !important;
+}
+
+.leaflet-popup-content {
+    color: white !important;
+    font-family: Arial, sans-serif !important;
+    margin: 0 !important;
+}
+
+.leaflet-popup-tip {
+    background: rgba(0, 0, 0, 0.8) !important;
+}
+
+.leaflet-popup-close-button {
+    color: white !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+}
+
+.leaflet-popup-close-button:hover {
+    color: #FFD700 !important;
+}
+
+/* Map control styling */
+.leaflet-control-zoom {
+    border: none !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    border-radius: 5px !important;
+}
+
+.leaflet-control-zoom a {
+    background: rgba(0, 0, 0, 0.7) !important;
+    color: white !important;
+    border: none !important;
+}
+
+.leaflet-control-zoom a:hover {
+    background: rgba(0, 0, 0, 0.9) !important;
+    color: #FFD700 !important;
+}
+
+/* Attribution styling */
+.leaflet-control-attribution {
+    background: rgba(0, 0, 0, 0.7) !important;
+    color: white !important;
+    font-size: 10px !important;
+}
+
+.leaflet-control-attribution a {
+    color: #FFD700 !important;
+}
+
+.map-overlay-text {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.2rem;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 5px;
+    backdrop-filter: blur(10px);
+}
+
+.map-locations {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.location-marker {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    color: #2c5530;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.location-marker:hover {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1a202c;
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.location-marker::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-up {
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

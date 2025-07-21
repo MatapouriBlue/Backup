@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Text Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .editor-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .button-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <h1>Simple Text Editor</h1>
+        <p>Edit your philosophy section text here:</p>
+        
+        <div class="input-group">
+            <label for="title">Title:</label>
+            <input type="text" id="title" value="Our name, our philosophy" />
+        </div>
+        
+        <div class="input-group">
+            <label for="text1">First Paragraph:</label>
+            <textarea id="text1">Inspired by the philosophy of Japanese Bonsai, the Matapouri Blue Totara found on our land, and the deep blue of the lake, our name and place reflect the values we hold dear.</textarea>
+        </div>
+        
+        <div class="input-group">
+            <label for="text2">Second Paragraph:</label>
+            <textarea id="text2">Life isn't always easy—but with strong roots, a sense of direction, and the courage to shape new growth, we believe each person can define their own path and future.</textarea>
+        </div>
+        
+        <div class="button-group">
+            <button onclick="saveText()">Save Changes</button>
+        </div>
+        
+        <div id="message"></div>
+    </div>
+
+    <script>
+        function saveText() {
+            const title = document.getElementById('title').value;
+            const text1 = document.getElementById('text1').value;
+            const text2 = document.getElementById('text2').value;
+            
+            const data = {
+                title: title,
+                text1: text1,
+                text2: text2
+            };
+            
+            fetch('/apply-philosophy-text', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('message').innerHTML = 
+                        '<div class="success">Text saved successfully! <a href="/" target="_blank">View website</a></div>';
+                } else {
+                    document.getElementById('message').innerHTML = 
+                        '<div style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px;">Error: ' + data.error + '</div>';
+                }
+            })
+            .catch(error => {
+                document.getElementById('message').innerHTML = 
+                    '<div style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px;">Error saving text</div>';
+            });
+        }
+    </script>
+</body>
+</html>

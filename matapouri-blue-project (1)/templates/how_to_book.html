@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}How to Book - Matapouri Blue{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="section-overlay"></div>
+    <div class="container content-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="page-title">How to Book Your Stay</h1>
+                
+                <div class="content-card">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-calendar-alt me-2"></i>
+                        Step 1: Check Availability
+                    </h3>
+                    <p class="content-text">
+                        Begin by checking our availability calendar to see when Matapouri Blue is available for your desired dates. 
+                        Our booking system shows real-time availability and current rates.
+                    </p>
+                    <div class="text-center mb-4">
+                        <a href="{{ url_for('check_availability') }}" class="btn btn-primary">
+                            Check Available Dates
+                        </a>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-envelope me-2"></i>
+                        Step 2: Contact Us
+                    </h3>
+                    <p class="content-text">
+                        Once you've found your preferred dates, contact us directly to discuss your requirements. 
+                        We'll provide detailed information about rates, packages, and any special requests you may have.
+                    </p>
+                    <div class="text-center mb-4">
+                        <a href="{{ url_for('contact') }}" class="btn btn-primary">
+                            Get In Touch
+                        </a>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-credit-card me-2"></i>
+                        Step 3: Secure Your Booking
+                    </h3>
+                    <p class="content-text">
+                        To confirm your reservation, we'll send you a booking confirmation with payment details. 
+                        A deposit is typically required to secure your dates, with the balance due prior to arrival.
+                    </p>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Booking Information
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="subsection-title">Check-in Details</h4>
+                            <ul class="content-text">
+                                <li>Check-in time: 3:00 PM</li>
+                                <li>Check-out time: 11:00 AM</li>
+                                <li>Early check-in available upon request</li>
+                                <li>Late check-out may be arranged</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="subsection-title">What's Included</h4>
+                            <ul class="content-text">
+                                <li>Luxury accommodation</li>
+                                <li>Welcome amenities</li>
+                                <li>Access to all facilities</li>
+                                <li>Local area information</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-shield-alt me-2"></i>
+                        Cancellation Policy
+                    </h3>
+                    <p class="content-text">
+                        We understand that plans can change. Matapouri Blue offers a flexible cancellation policy 
+                        with 100% refund available for cancellations made within our specified timeframe. 
+                        Please contact us for complete terms and conditions.
+                    </p>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-car me-2"></i>
+                        Transport Options
+                    </h3>
+                    <p class="content-text">
+                        We can arrange pick-up and drop-off services from local airports and transport hubs. 
+                        Please let us know your travel plans when booking, and we'll provide information about 
+                        our transfer services and local transport options.
+                    </p>
+                </div>
+
+                <div class="text-center mt-5">
+                    <p class="content-text">
+                        <strong>Ready to book your stay?</strong><br>
+                        Contact us today to begin planning your Matapouri Blue experience.
+                    </p>
+                    <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">
+                        Start Your Booking
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

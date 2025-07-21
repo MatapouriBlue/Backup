@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AARONS WORD PROCESSOR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .processor-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin: 20px 0;
+            min-width: 1000px;
+        }
+        
+        .processor-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .processor-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        .processor-toolbar {
+            padding: 15px;
+            background: #ecf0f1;
+            border-bottom: 1px solid #bdc3c7;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .toolbar-group {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            padding: 5px 10px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #bdc3c7;
+            color: #333;
+        }
+        
+        .toolbar-group label {
+            font-weight: bold;
+            margin-right: 5px;
+            min-width: 80px;
+            color: #333;
+        }
+        
+        .toolbar-group input[type="range"] {
+            width: 120px;
+        }
+        
+        .toolbar-group input[type="text"], .toolbar-group textarea {
+            width: 200px;
+            padding: 5px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+        
+        .toolbar-group select {
+            width: 120px;
+            padding: 5px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+        
+        .toolbar-group button {
+            background: #3498db;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .toolbar-group button:hover {
+            background: #2980b9;
+        }
+        
+        .toolbar-group button.active {
+            background: #e74c3c;
+        }
+        
+        .display-area {
+            width: 800px;
+            height: 600px;
+            background: #ffffff;
+            position: relative;
+            margin: 20px auto;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .text-content {
+            position: absolute;
+            border: none;
+            background: transparent;
+            outline: none;
+            resize: none;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #333;
+            padding: 0;
+            margin: 0;
+            cursor: move;
+            min-width: 100px;
+            min-height: 30px;
+        }
+        
+        .text-content.selected {
+            outline: 2px solid #3498db;
+        }
+        
+        .output-section {
+            background: #ecf0f1;
+            padding: 20px;
+            border-top: 1px solid #bdc3c7;
+        }
+        
+        .output-section h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .code-output {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+        
+        .output-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .output-buttons button {
+            background: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .output-buttons button:hover {
+            background: #219a52;
+        }
+    </style>
+</head>
+<body>
+    <div class="processor-container">
+        <div class="processor-header">
+            <h1>AARONS WORD PROCESSOR</h1>
+            <p>Advanced Text Editor with Color Controls & Transparency</p>
+        </div>
+        
+        <div class="processor-toolbar">
+            <div class="toolbar-group">
+                <label>Position:</label>
+                <span style="color: #666; font-size: 11px;">W</span>
+                <input type="number" id="positionX" min="0" max="800" value="100" style="width: 60px;">
+                <span style="color: #333; font-size: 11px;">px</span>
+                <span style="color: #666; font-size: 11px;">H</span>
+                <input type="number" id="positionY" min="0" max="600" value="10" style="width: 60px;">
+                <span style="color: #333; font-size: 11px;">px</span>
+            </div>
+            
+            <div class="toolbar-group">
+                <label>Size:</label>
+                <span style="color: #666; font-size: 11px;">W</span>
+                <input type="number" id="width" min="200" max="1400" value="600" style="width: 60px;">
+                <span style="color: #333; font-size: 11px;">px</span>
+                <span style="color: #666; font-size: 11px;">H</span>
+                <input type="number" id="height" min="20" max="2000" value="60" style="width: 60px;">
+                <span style="color: #333; font-size: 11px;">px</span>
+            </div>
+            
+            <div class="toolbar-group">
+                <label>Font:</label>
+                <select id="fontFamily">
+                    <option value="Arial, sans-serif">Arial</option>
+                    <option value="Helvetica, sans-serif">Helvetica</option>
+                    <option value="Times New Roman, serif">Times</option>
+                    <option value="Georgia, serif">Georgia</option>
+                    <option value="Courier New, monospace">Courier</option>
+                </select>
+                <input type="number" id="fontSize" min="8" max="48" value="16" style="width: 60px;">
+                <span style="color: #333; font-size: 11px;">px</span>
+            </div>
+            
+            <div class="toolbar-group">
+                <label>Title Size:</label>
+                <input type="number" id="titleFontSize" min="8" max="72" value="24" style="width: 60px;">
+                <span style="color: #333; font-size: 11px;">px</span>
+                <button onclick="applyTitleSize()" style="font-size: 11px; padding: 2px 8px;">Apply Title Size</button>
+            </div>
+            
+            <div class="toolbar-group">
+                <label>Line Spacing:</label>
+                <input type="number" id="lineHeight" min="1" max="3" step="0.1" value="1.2" style="width: 60px;">
+                <span style="color: #333; font-size: 11px;">em</span>
+            </div>
+            
+            <div class="toolbar-group">
+                <label>Style:</label>
+                <button id="boldButton" onclick="applyBoldToSelection()">B</button>
+                <button id="italicButton" onclick="applyItalicToSelection()">I</button>
+                <button id="underlineButton" onclick="applyUnderlineToSelection()">U</button>
+                <button onclick="cutText()">Cut</button>
+                <button onclick="copyText()">Copy</button>
+                <button onclick="pasteText()">Paste</button>
+                <button onclick="clearText()">Clear</button>
+            </div>
+            
+            <div class="toolbar-group">
+                <label>Align:</label>
+                <select id="textAlignment">
+                    <option value="left">Left</option>
+                    <option value="center">Center</option>
+                    <option value="right">Right</option>
+                    <option value="justify">Justify</option>
+                </select>
+            </div>
+            
+            <div class="toolbar-group">
+                <label>Text Color:</label>
+                <input type="color" id="textColor" value="#333333" style="width: 40px; height: 30px;">
+                <span style="color: #333; font-size: 11px; margin-left: 5px;" id="textColorName">Dark Grey</span>
+                <label style="margin-left: 8px;">Opacity:</label>
+                <input type="range" id="textOpacity" min="0" max="100" value="100" style="width: 60px;">
+                <span style="color: #333; font-size: 11px;" id="textOpacityValue">100%</span>
+            </div>
+            
+            <div class="toolbar-group">
+                <label>Background:</label>
+                <input type="color" id="backgroundColor" value="#ffffff" style="width: 40px; height: 30px;">
+                <span style="color: #333; font-size: 11px; margin-left: 5px;" id="bgColorName">White</span>
+                <label style="margin-left: 8px;">Opacity:</label>
+                <input type="range" id="bgOpacity" min="0" max="100" value="0" style="width: 60px;">
+                <span style="color: #333; font-size: 11px;" id="bgOpacityValue">0%</span>
+            </div>
+            
+            <div class="toolbar-group">
+                <label>Save Colors:</label>
+                <button onclick="saveBodyTextColor()" style="font-size: 11px; padding: 2px 8px;">Save Body Text</button>
+                <button onclick="saveTitleTextColor()" style="font-size: 11px; padding: 2px 8px;">Save Title Text</button>
+                <button onclick="applyBodyTextColor()" style="font-size: 11px; padding: 2px 8px;">Apply Body</button>
+                <button onclick="applyTitleTextColor()" style="font-size: 11px; padding: 2px 8px;">Apply Title</button>
+            </div>
+            
+            <div class="toolbar-group">
+                <label>Text Content:</label>
+                <textarea id="textContent" placeholder="Enter your text here..." rows="2" style="width: 300px;"></textarea>
+            </div>
+            
+            <div class="toolbar-group">
+                <label>Background Size:</label>
+                <span style="color: #666; font-size: 11px;">W</span>
+                <input type="number" id="bgWidth" min="600" max="1400" value="800" style="width: 60px;">
+                <span style="color: #333; font-size: 11px;">px</span>
+                <span style="color: #666; font-size: 11px;">H</span>
+                <input type="number" id="bgHeight" min="400" max="1000" value="600" style="width: 60px;">
+                <span style="color: #333; font-size: 11px;">px</span>
+            </div>
+        </div>
+        
+        <div class="display-area" id="websiteDisplayArea">
+            <div class="text-content selected" id="textArea1" contenteditable="true" style="position: absolute; left: 100px; top: 10px; width: 600px; height: 60px; border: none; background: transparent; outline: none; font-family: Arial, sans-serif; font-size: 28px; color: #333; padding: 0; margin: 0; cursor: move;">Our name, our philosophy</div>
+            <div class="text-content" id="textArea2" contenteditable="true" style="position: absolute; left: 100px; top: 80px; width: 600px; height: 80px; border: none; background: transparent; outline: none; font-family: Arial, sans-serif; font-size: 16px; color: #333; padding: 0; margin: 0; cursor: move;">Inspired by the philosophy of Japanese Bonsai, the Matapouri Blue Totara found on our land, and the deep blue of the lake, our name and place reflect the values we hold dear.</div>
+            <div class="text-content" id="textArea3" contenteditable="true" style="position: absolute; left: 100px; top: 170px; width: 600px; height: 80px; border: none; background: transparent; outline: none; font-family: Arial, sans-serif; font-size: 16px; color: #333; padding: 0; margin: 0; cursor: move;">Life isn't always easy—but with strong roots, a sense of direction, and the courage to shape new growth, we believe each person can define their own path and future.</div>
+        </div>
+        
+        <div class="output-section">
+            <h3>Generated CSS Code</h3>
+            <div id="codeOutput" class="code-output">Generated CSS will appear here...</div>
+            <div class="output-buttons">
+                <button onclick="copyCSS()">Copy CSS</button>
+                <button onclick="exportHTML()">Export HTML</button>
+                <button onclick="applyToPhilosophySection()">Apply to Philosophy Section</button>
+                <button onclick="resetAll()">Reset All</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedTextArea = null;
+        let savedBodyTextColor = { color: '#333333', opacity: 100 };
+        let savedTitleTextColor = { color: '#000000', opacity: 100 };
+        
+        // Helper functions for color conversion
+        function hexToRgba(hex, opacity) {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+        }
+        
+        function getColorName(hex) {
+            const colors = {
+                '#000000': 'Black',
+                '#ffffff': 'White',
+                '#ff0000': 'Red',
+                '#00ff00': 'Green',
+                '#0000ff': 'Blue',
+                '#ffff00': 'Yellow',
+                '#ff00ff': 'Magenta',
+                '#00ffff': 'Cyan',
+                '#800000': 'Maroon',
+                '#808000': 'Olive',
+                '#008000': 'Dark Green',
+                '#800080': 'Purple',
+                '#008080': 'Teal',
+                '#000080': 'Navy',
+                '#808080': 'Grey',
+                '#c0c0c0': 'Silver',
+                '#ffa500': 'Orange',
+                '#ffc0cb': 'Pink',
+                '#a52a2a': 'Brown',
+                '#333333': 'Dark Grey',
+                '#666666': 'Medium Grey',
+                '#999999': 'Light Grey',
+                '#cccccc': 'Very Light Grey'
+            };
+            
+            return colors[hex.toLowerCase()] || hex.toUpperCase();
+        }
+        
+        function applyColorAndOpacity() {
+            if (selectedTextArea) {
+                const textColor = document.getElementById('textColor').value;
+                const textOpacity = document.getElementById('textOpacity').value / 100;
+                const bgColor = document.getElementById('backgroundColor').value;
+                const bgOpacity = document.getElementById('bgOpacity').value / 100;
+                
+                selectedTextArea.style.color = hexToRgba(textColor, textOpacity);
+                selectedTextArea.style.backgroundColor = hexToRgba(bgColor, bgOpacity);
+                
+                // Update color names
+                document.getElementById('textColorName').textContent = getColorName(textColor);
+                document.getElementById('bgColorName').textContent = getColorName(bgColor);
+                
+                generateCSS();
+            }
+        }
+        
+        function saveBodyTextColor() {
+            const textColor = document.getElementById('textColor').value;
+            const textOpacity = document.getElementById('textOpacity').value;
+            
+            savedBodyTextColor = {
+                color: textColor,
+                opacity: textOpacity
+            };
+            
+            alert(`Body text color saved: ${getColorName(textColor)} at ${textOpacity}% opacity`);
+        }
+        
+        function saveTitleTextColor() {
+            const textColor = document.getElementById('textColor').value;
+            const textOpacity = document.getElementById('textOpacity').value;
+            
+            savedTitleTextColor = {
+                color: textColor,
+                opacity: textOpacity
+            };
+            
+            alert(`Title text color saved: ${getColorName(textColor)} at ${textOpacity}% opacity`);
+        }
+        
+        function applyBodyTextColor() {
+            if (selectedTextArea) {
+                document.getElementById('textColor').value = savedBodyTextColor.color;
+                document.getElementById('textOpacity').value = savedBodyTextColor.opacity;
+                document.getElementById('textOpacityValue').textContent = savedBodyTextColor.opacity + '%';
+                document.getElementById('textColorName').textContent = getColorName(savedBodyTextColor.color);
+                applyColorAndOpacity();
+            }
+        }
+        
+        function applyTitleTextColor() {
+            if (selectedTextArea) {
+                document.getElementById('textColor').value = savedTitleTextColor.color;
+                document.getElementById('textOpacity').value = savedTitleTextColor.opacity;
+                document.getElementById('textOpacityValue').textContent = savedTitleTextColor.opacity + '%';
+                document.getElementById('textColorName').textContent = getColorName(savedTitleTextColor.color);
+                applyColorAndOpacity();
+            }
+        }
+        
+        function applyTitleSize() {
+            if (selectedTextArea) {
+                const titleSize = document.getElementById('titleFontSize').value;
+                
+                // Check if there's selected text within the contenteditable area
+                const selection = window.getSelection();
+                if (selection.rangeCount > 0 && selection.toString().length > 0) {
+                    // Apply font size to selected text only
+                    const range = selection.getRangeAt(0);
+                    const span = document.createElement('span');
+                    span.style.fontSize = titleSize + 'px';
+                    
+                    try {
+                        range.surroundContents(span);
+                    } catch (e) {
+                        // If can't surround (complex selection), use execCommand
+                        document.execCommand('fontSize', false, '7'); // Reset to default
+                        const selectedText = selection.toString();
+                        const newText = `<span style="font-size: ${titleSize}px">${selectedText}</span>`;
+                        document.execCommand('insertHTML', false, newText);
+                    }
+                } else {
+                    // No text selected, apply to entire text area
+                    selectedTextArea.style.fontSize = titleSize + 'px';
+                }
+                
+                generateCSS();
+            }
+        }
+        
+        function makeDraggable(element) {
+            let isDragging = false;
+            let currentX, currentY, initialX, initialY;
+            
+            element.addEventListener('mousedown', function(e) {
+                isDragging = true;
+                initialX = e.clientX - element.offsetLeft;
+                initialY = e.clientY - element.offsetTop;
+                
+                selectTextArea(element);
+            });
+            
+            document.addEventListener('mousemove', function(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    
+                    const container = document.getElementById('websiteDisplayArea');
+                    const maxX = container.offsetWidth - element.offsetWidth;
+                    const maxY = container.offsetHeight - element.offsetHeight;
+                    
+                    currentX = Math.max(0, Math.min(currentX, maxX));
+                    currentY = Math.max(0, Math.min(currentY, maxY));
+                    
+                    element.style.left = currentX + 'px';
+                    element.style.top = currentY + 'px';
+                    
+                    updateControls(element);
+                    generateCSS();
+                }
+            });
+            
+            document.addEventListener('mouseup', function() {
+                isDragging = false;
+            });
+        }
+        
+        function selectTextArea(element) {
+            document.querySelectorAll('.text-content').forEach(area => {
+                area.classList.remove('selected');
+            });
+            
+            element.classList.add('selected');
+            selectedTextArea = element;
+            updateControls(element);
+        }
+        
+        function updateControls(element) {
+            if (!element) return;
+            
+            document.getElementById('positionX').value = parseInt(element.style.left) || 0;
+            document.getElementById('positionY').value = parseInt(element.style.top) || 0;
+            document.getElementById('width').value = parseInt(element.style.width) || 600;
+            document.getElementById('height').value = parseInt(element.style.height) || 60;
+            
+            document.getElementById('fontSize').value = parseInt(element.style.fontSize) || 16;
+            document.getElementById('fontFamily').value = element.style.fontFamily || 'Arial, sans-serif';
+            document.getElementById('textAlignment').value = element.style.textAlign || 'left';
+            document.getElementById('lineHeight').value = parseFloat(element.style.lineHeight) || 1.2;
+        }
+        
+        function generateCSS() {
+            let css = '';
+            
+            document.querySelectorAll('.text-content').forEach((element, index) => {
+                css += `.text-content-${index + 1} {\n`;
+                css += `    position: absolute;\n`;
+                css += `    left: ${element.style.left};\n`;
+                css += `    top: ${element.style.top};\n`;
+                css += `    width: ${element.style.width};\n`;
+                css += `    height: ${element.style.height};\n`;
+                css += `    font-family: ${element.style.fontFamily || 'Arial, sans-serif'};\n`;
+                css += `    font-size: ${element.style.fontSize || '16px'};\n`;
+                css += `    color: ${element.style.color || '#333333'};\n`;
+                css += `    background-color: ${element.style.backgroundColor || 'transparent'};\n`;
+                css += `    text-align: ${element.style.textAlign || 'left'};\n`;
+                css += `    line-height: ${element.style.lineHeight || '1.2'};\n`;
+                css += `}\n\n`;
+            });
+            
+            document.getElementById('codeOutput').textContent = css;
+        }
+        
+        function copyCSS() {
+            const css = document.getElementById('codeOutput').textContent;
+            navigator.clipboard.writeText(css).then(() => {
+                alert('CSS copied to clipboard!');
+            });
+        }
+        
+        function exportHTML() {
+            let html = '<!DOCTYPE html>\n<html>\n<head>\n<style>\n';
+            html += document.getElementById('codeOutput').textContent;
+            html += '</style>\n</head>\n<body>\n';
+            
+            document.querySelectorAll('.text-content').forEach((element, index) => {
+                html += `<div class="text-content-${index + 1}">${element.innerHTML}</div>\n`;
+            });
+            
+            html += '</body>\n</html>';
+            
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'aarons-word-processor-export.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function resetAll() {
+            document.querySelectorAll('.text-content').forEach(content => {
+                content.innerHTML = '';
+            });
+            generateCSS();
+        }
+        
+        function applyToPhilosophySection() {
+            const textAreas = document.querySelectorAll('.text-content');
+            if (textAreas.length === 0) {
+                alert('No text content to apply. Please add some text first.');
+                return;
+            }
+            
+            // Get text content and CSS
+            const css = document.getElementById('codeOutput').textContent;
+            const textContent = Array.from(textAreas).map(area => area.innerHTML).join('|||');
+            
+            console.log('CSS to apply:', css);
+            console.log('Text content:', textContent);
+            
+            // Apply CSS to website
+            fetch('/apply-css', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ css: css })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Also apply text content to philosophy section
+                    const textParts = textContent.split('|||');
+                    const philosophyData = {
+                        title: textParts[0] || 'Our name, our philosophy',
+                        text1: textParts[1] || 'Inspired by the philosophy of Japanese Bonsai...',
+                        text2: textParts[2] || 'Life isn\'t always easy...'
+                    };
+                    
+                    return fetch('/apply-philosophy-text', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(philosophyData)
+                    });
+                }
+                throw new Error('CSS application failed');
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Successfully applied to Philosophy Section! Please refresh the website to see changes.');
+                } else {
+                    alert('Error applying text content: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error applying to Philosophy Section');
+            });
+        }
+        
+        function makeTextEditable() {
+            document.querySelectorAll('.text-content').forEach(content => {
+                content.contentEditable = true;
+                content.addEventListener('input', generateCSS);
+                content.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                    const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+                    document.execCommand('insertText', false, text);
+                });
+            });
+        }
+        
+        function applyBoldToSelection() {
+            document.execCommand('bold', false, null);
+        }
+        
+        function applyItalicToSelection() {
+            document.execCommand('italic', false, null);
+        }
+        
+        function applyUnderlineToSelection() {
+            document.execCommand('underline', false, null);
+        }
+        
+        function cutText() {
+            document.execCommand('cut');
+        }
+        
+        function copyText() {
+            document.execCommand('copy');
+        }
+        
+        function pasteText() {
+            document.execCommand('paste');
+        }
+        
+        function clearText() {
+            if (selectedTextArea) {
+                selectedTextArea.innerHTML = '';
+                generateCSS();
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            makeDraggable(document.getElementById('textArea1'));
+            makeDraggable(document.getElementById('textArea2'));
+            makeDraggable(document.getElementById('textArea3'));
+            selectTextArea(document.getElementById('textArea1'));
+            makeTextEditable();
+            
+            // Add event listeners for controls
+            document.getElementById('positionX').addEventListener('input', function() {
+                if (selectedTextArea) {
+                    selectedTextArea.style.left = this.value + 'px';
+                    generateCSS();
+                }
+            });
+            
+            document.getElementById('positionY').addEventListener('input', function() {
+                if (selectedTextArea) {
+                    selectedTextArea.style.top = this.value + 'px';
+                    generateCSS();
+                }
+            });
+            
+            document.getElementById('width').addEventListener('input', function() {
+                if (selectedTextArea) {
+                    selectedTextArea.style.width = this.value + 'px';
+                    generateCSS();
+                }
+            });
+            
+            document.getElementById('height').addEventListener('input', function() {
+                if (selectedTextArea) {
+                    selectedTextArea.style.height = this.value + 'px';
+                    generateCSS();
+                }
+            });
+            
+            document.getElementById('fontSize').addEventListener('input', function() {
+                if (selectedTextArea) {
+                    selectedTextArea.style.fontSize = this.value + 'px';
+                    generateCSS();
+                }
+            });
+            
+            document.getElementById('fontFamily').addEventListener('change', function() {
+                if (selectedTextArea) {
+                    selectedTextArea.style.fontFamily = this.value;
+                    generateCSS();
+                }
+            });
+            
+            document.getElementById('textAlignment').addEventListener('change', function() {
+                if (selectedTextArea) {
+                    selectedTextArea.style.textAlign = this.value;
+                    generateCSS();
+                }
+            });
+            
+            document.getElementById('lineHeight').addEventListener('input', function() {
+                if (selectedTextArea) {
+                    selectedTextArea.style.lineHeight = this.value;
+                    generateCSS();
+                }
+            });
+            
+            document.getElementById('textColor').addEventListener('change', function() {
+                document.getElementById('textColorName').textContent = getColorName(this.value);
+                applyColorAndOpacity();
+            });
+            
+            document.getElementById('textOpacity').addEventListener('input', function() {
+                document.getElementById('textOpacityValue').textContent = this.value + '%';
+                applyColorAndOpacity();
+            });
+            
+            document.getElementById('backgroundColor').addEventListener('change', function() {
+                document.getElementById('bgColorName').textContent = getColorName(this.value);
+                applyColorAndOpacity();
+            });
+            
+            document.getElementById('bgOpacity').addEventListener('input', function() {
+                document.getElementById('bgOpacityValue').textContent = this.value + '%';
+                applyColorAndOpacity();
+            });
+            
+            // Background size controls
+            document.getElementById('bgWidth').addEventListener('input', function() {
+                const displayArea = document.getElementById('websiteDisplayArea');
+                const width = this.value;
+                
+                displayArea.style.width = width + 'px';
+                
+                // Update position and size input max values
+                document.getElementById('positionX').max = Math.max(800, width - 100);
+                document.getElementById('width').max = Math.min(1400, width);
+                generateCSS();
+            });
+            
+            document.getElementById('bgHeight').addEventListener('input', function() {
+                const displayArea = document.getElementById('websiteDisplayArea');
+                const height = this.value;
+                
+                displayArea.style.height = height + 'px';
+                
+                // Update position and size input max values
+                document.getElementById('positionY').max = Math.max(600, height - 100);
+                document.getElementById('height').max = Math.min(2000, height);
+                generateCSS();
+            });
+            
+            // Text content update
+            document.getElementById('textContent').addEventListener('input', function() {
+                if (selectedTextArea) {
+                    selectedTextArea.innerHTML = this.value.replace(/\n/g, '<br>');
+                    generateCSS();
+                }
+            });
+            
+            // Title font size control
+            document.getElementById('titleFontSize').addEventListener('input', function() {
+                // Update the display value as user types
+                const titleSizeDisplay = document.querySelector('#titleFontSize + span');
+                if (titleSizeDisplay) {
+                    titleSizeDisplay.textContent = this.value + 'px';
+                }
+            });
+            
+            generateCSS();
+        });
+    </script>
+</body>
+</html>
