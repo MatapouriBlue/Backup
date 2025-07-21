@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block body_class %}front-page{% endblock %}
+
+{% block content %}
+<!-- First Section - Image Carousel -->
+<section class="page-section carousel-section">
+    <div class="carousel-container" id="carousel-container">
+        <div class="carousel-overlay">
+            <a href="{{ url_for('check_availability') }}" class="availability-button">
+                Check Availability
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Second Section - Philosophy -->
+<section class="page-section philosophy-section">
+    <div class="section-overlay"></div>
+    <div class="container content-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="philosophy-header">
+                    <h2 class="philosophy-title">{{ philosophy.title if philosophy else 'Our name, our philosophy' }}</h2>
+                    <a href="{{ url_for('aarons_word_processor') }}" class="edit-philosophy-btn" title="Edit with AARONS WORD PROCESSOR">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </div>
+                <div class="philosophy-content">
+                    <div class="philosophy-text-container">
+                        <p class="philosophy-text">{{ philosophy.text1 if philosophy else 'Inspired by the philosophy of Japanese Bonsai, the Matapouri Blue Totara found on our land, and the deep blue of the lake, our name and place reflect the values we hold dear.' }}</p>
+                        <p class="philosophy-text">{{ philosophy.text2 if philosophy else 'Life isn\'t always easy—but with strong roots, a sense of direction, and the courage to shape new growth, we believe each person can define their own path and future.' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Divider -->
+<div class="section-divider"></div>
+
+<!-- Third Section - Welcome -->
+<section class="page-section welcome-section">
+    <div class="section-overlay"></div>
+    <div class="container content-container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="welcome-content">
+                    <h2 class="welcome-title"><strong>Welcome!</strong></h2>
+                    <div class="welcome-text">
+                        <p>Nestled in the heart of Kinloch, Taupo, our accommodation offers a private, quiet, and safe space where you can truly unwind. Just a 10-minute walk to the lake, our retreat invites you to experience the beauty of nature right on your doorstep.</p>
+                        
+                        <p>Immerse yourself in our beautiful gardens, designed with a Japanese Zen feature that separates the guests' private courtyard from the host space. The peaceful surroundings are home to a variety of majestic wildlife, including the elegant blue herons that roam freely in the area. If you're fortunate enough, you might even spot two curious magpies patrolling the grounds early in the morning, adding a touch of magic to your stay.</p>
+                        
+                        <p>Our comfortable accommodation is the perfect base to relax and rejuvenate. Whether you're eager to explore the outdoors or prefer to enjoy the serenity of our gardens with a good book, there's something for everyone. If the mood strikes, you're welcome to lend a hand in the gardens—an opportunity to connect with nature and enhance your retreat experience.</p>
+                        
+                        <p><strong>Weather: Best in the North Island? Maybe…</strong><br>
+                        Don't let the cooler climate put you off. Anyone who has spent time in the Taupo region, especially Kinloch, will tell you that the air here is truly magical. Every breath revitalizes your senses. Thanks to the dry and calm climate, you won't feel the cold the same way you would in a more humid and windy area. In winter, when the forecast indicates cooler temperatures, it often feels warmer when the sun is out. Kinloch enjoys mostly calm weather, but when conditions change, it adds character to the experience.</p>
+                        
+                        <p>Whether you're seeking adventure or simply a quiet space to recharge, our retreat offers the ideal environment for relaxation and rejuvenation.</p>
+                        
+                        <p>Take some time to explore our website—you might be pleasantly surprised by all that we have to offer.</p>
+                        
+                        <p class="discover-link">
+                            <a href="{{ url_for('discover') }}" class="discover-button">Click here to discover what's in this beautiful location.</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
